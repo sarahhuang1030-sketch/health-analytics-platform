@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:18
+    container_name: hospital_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Sarah923*
+      POSTGRES_DB: hospital_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - "C:/Users/sarah/Downloads/Hospital+Patient+Records:/data"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: healthcare_api
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:Sarah923*@db:5432/hospital_db
+
+volumes:
+  pgdata:
