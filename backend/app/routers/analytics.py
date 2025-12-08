@@ -5,6 +5,10 @@ from app.database import get_db
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 
+@router.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 @router.get("/patient-count")
 def patient_count(db: Session = Depends(get_db)):
     result = db.execute(text("SELECT COUNT(*) FROM patients")).scalar()
