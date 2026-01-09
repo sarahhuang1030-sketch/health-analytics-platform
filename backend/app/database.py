@@ -8,6 +8,10 @@ LOCAL_DOCKER_URL = "postgresql+psycopg2://postgres:postgres@db:5432/hospital_db"
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+p = urlparse(DATABASE_URL)
+print("DB_HOST:", p.hostname)
+print("DB_PORT:", p.port)
+
 # ✅ If you're running locally with docker-compose, set LOCAL_DOCKER=1
 if not DATABASE_URL and os.getenv("LOCAL_DOCKER") == "1":
     DATABASE_URL = LOCAL_DOCKER_URL
