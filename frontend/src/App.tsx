@@ -141,8 +141,18 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
 
 
     // Trigger all fetches in parallel
-     Promise.all([fetchPatientCount(), fetchEncounterCount(), fetchProcedureCount(), fetchTotalCostCount(), 
-      fetchavgPatientCount(), fetchTopProcedures(), fetchProcedureCostByYear()]);
+    //  Promise.all([fetchPatientCount(), fetchEncounterCount(), fetchProcedureCount(), fetchTotalCostCount(), 
+    //   fetchavgPatientCount(), fetchTopProcedures(), fetchProcedureCostByYear()]);
+    Promise.allSettled([
+  fetchPatientCount(),
+  fetchEncounterCount(),
+  fetchProcedureCount(),
+  fetchTotalCostCount(),
+  fetchavgPatientCount(),
+  fetchTopProcedures(),
+  fetchProcedureCostByYear(),
+]);
+
 
   }, [topLimit, selectedYear]); //refetch when topLimit or selectedYear changes
 
@@ -186,32 +196,13 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     value={encounterCount ?? "Loading..."}
   />
 
- <Card
-  title="Total Procedures"
-  value={
-    procedureCount !== null
-      ? procedureCount.toLocaleString()
-      : "Loading..."
-  }
-/>
+<Card title="Total Procedures" value={fmtNumber(procedureCount) ?? "Loading..."} />
 
-  <Card
-    title="Total Procedure Cost"
-    value={
-      totalCostCount !== null
-        ? `$${totalCostCount.toLocaleString()}`
-        : "Loading..."
-    }
-  />
+ <Card title="Total Procedure Cost" value={fmtCurrency(totalCostCount) ?? "Loading..."} />
 
-  <Card
-    title="Avg Cost per Patient"
-    value={
-      avgPatientCount !== null
-        ? `$${avgPatientCount.toLocaleString()}`
-        : "Loading..."
-    }
-  />
+
+<Card title="Avg Cost per Patient" value={fmtCurrency(avgPatientCount) ?? "Loading..."} />
+
 </div>
 
       {/* {patientCount === null ? (
