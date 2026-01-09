@@ -2,6 +2,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
+from urllib.parse import urlparse
 
 # Optional local dev default (only used if you set LOCAL_DOCKER=1)
 LOCAL_DOCKER_URL = "postgresql+psycopg2://postgres:postgres@db:5432/hospital_db"
