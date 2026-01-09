@@ -12,14 +12,14 @@ def health_check():
 @router.get("/patient-count")
 def patient_count(db: Session = Depends(get_db)):
     result = db.execute(text("SELECT COUNT(*) FROM patients")).scalar()
-    return {"patient_count": result}
+    return {"patient-count": result}
 
 @router.get("/total-procedure-cost")
 def total_procedure_cost(db: Session = Depends(get_db)):
     result = db.execute(
         text("SELECT COALESCE(SUM(base_cost), 0) FROM procedures")
     ).scalar()
-    return {"total_procedure_cost": float(result)}
+    return {"total-procedure-cost": float(result)}
 
 @router.get("/top-procedures")
 def top_procedures(limit: int = 10, db: Session = Depends(get_db)):
@@ -39,7 +39,7 @@ def top_procedures(limit: int = 10, db: Session = Depends(get_db)):
     return [
         {
             "procedure": row.description,
-            "total_cost": float(row.total_cost),
+            "total-cost": float(row.total_cost),
             "count": row.procedure_count
         }
         for row in results
@@ -70,7 +70,7 @@ def procedure_costs_by_year(year: int | None = None, db: Session = Depends(get_d
         results = db.execute(query).fetchall()
 
     return [
-        {"year": row.year, "total_cost": float(row.total_cost)}
+        {"year": row.year, "total-cost": float(row.total_cost)}
         for row in results
     ]
 
@@ -93,9 +93,9 @@ def avg_cost_per_patient(db: Session = Depends(get_db)):
         """)
     ).scalar()
 
-    return {"avg_cost_per_patient": result}
+    return {"avg-cost-per-patient": result}
 
 @router.get("/procedure-count")
 def procedure_count(db: Session = Depends(get_db)):
     result = db.execute(text("SELECT COUNT(*) FROM procedures")).scalar()
-    return {"procedure_count": result}
+    return {"procedure-count": result}
