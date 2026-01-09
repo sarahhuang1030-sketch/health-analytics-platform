@@ -5,6 +5,10 @@ from app.routers import analytics, patients, encounters, procedures
 
 app = FastAPI(title="Healthcare Analytics API")
 
+@app.get("/")
+def root():
+    return {"message": "Health Analytics Platform API is running", "docs": "/docs"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
