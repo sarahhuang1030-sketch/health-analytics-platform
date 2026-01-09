@@ -7,6 +7,13 @@ type CardProps = {
 };
 
 export default function Card({ title, value, loading }: CardProps) {
+  const displayValue =
+    loading
+      ? "Loading..."
+      : typeof value === "number"
+      ? value.toLocaleString()
+      : value ?? "—";
+  
   return (
     <div
       style={{
@@ -20,11 +27,15 @@ export default function Card({ title, value, loading }: CardProps) {
     >
       <h3 style={{ marginBottom: "1rem", color: "#555" }}>{title}</h3>
 
-      {loading ? (
+      {/* {loading ? (
         <p style={{ color: "#888" }}>Loading...</p>
       ) : (
         <p style={{ fontSize: "1.8rem", fontWeight: "bold" }}>{value}</p>
-      )}
+      )} */}
+
+      <p style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
+        {displayValue}
+      </p>
     </div>
   );
 }
