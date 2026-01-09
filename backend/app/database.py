@@ -9,9 +9,10 @@ DATABASE_URL = os.getenv(
 
 engine = create_engine(
     DATABASE_URL,
-    pool_pre_ping=True,
-    pool_recycle=300,
+    connect_args={"sslmode": "require"},
+    poolclass=NullPool,          # important: avoids reused dropped SSL conns
 )
+
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 def get_db():
