@@ -9,6 +9,16 @@ import ProcedureCostLineChart from "./components/ProcedureCostLineChart";
 
 const API_BASE = process.env.REACT_APP_API_BASE || "https://health-analytics-platform.onrender.com";
 
+//added helper functions for formatting
+const fmtNumber = (v: unknown) => {
+  const n = typeof v === "number" ? v : Number(v);
+  return Number.isFinite(n) ? n.toLocaleString() : null;
+};
+
+const fmtCurrency = (v: unknown) => {
+  const s = fmtNumber(v);
+  return s === null ? null : `$${s}`;
+};
 
 function App() {
 // State for counts
@@ -176,10 +186,14 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     value={encounterCount ?? "Loading..."}
   />
 
-  <Card
-    title="Total Procedures"
-    value={procedureCount ?? "Loading..."}
-  />
+ <Card
+  title="Total Procedures"
+  value={
+    procedureCount !== null
+      ? procedureCount.toLocaleString()
+      : "Loading..."
+  }
+/>
 
   <Card
     title="Total Procedure Cost"
