@@ -4,7 +4,11 @@ import Card from "./components/Card";
 import TopProceduresChart from "./components/TopProceduresChart";
 import ProcedureCostLineChart from "./components/ProcedureCostLineChart";
 
-const API_BASE = "http://localhost:8000";
+//local
+// const API_BASE = "http://localhost:8000";
+
+const API_BASE = process.env.REACT_APP_API_BASE || "https://health-analytics-platform.onrender.com";
+
 
 function App() {
 // State for counts
