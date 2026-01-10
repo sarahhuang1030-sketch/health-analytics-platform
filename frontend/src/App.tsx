@@ -116,7 +116,9 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const res = await axios.get(
       `${API_BASE}/analytics/top-procedures?limit=${topLimit}`
     );
-    setTopProcedures(res.data);
+   // setTopProcedures(res.data);
+   const data = res.data?.top_procedures ?? res.data; // <— key fix
+    setTopProcedures(Array.isArray(data) ? data : []);
   } catch (err) {
     console.error(err);
     setTopProceduresError("Failed to fetch top procedures");
@@ -132,8 +134,9 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const res = await axios.get(
       `${API_BASE}/analytics/procedure-costs-by-year${yearParam}`
     );
-
-    setProcedureCostByYear(res.data);
+    //setProcedureCostByYear(res.data);
+    const data = res.data?.procedure_costs_by_year ?? res.data; // <— key fix
+    setProcedureCostByYear(Array.isArray(data) ? data : []);
   } catch (err) {
     console.error(err);
   }
