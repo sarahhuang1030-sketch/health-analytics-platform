@@ -116,6 +116,8 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const res = await axios.get(
       `${API_BASE}/analytics/top-procedures?limit=${topLimit}`
     );
+    //debugging
+    console.log("top-procedures raw:", res.data);
    // setTopProcedures(res.data);
     setTopProcedures(
       Array.isArray(res.data["top-procedures"])
@@ -137,6 +139,8 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const res = await axios.get(
       `${API_BASE}/analytics/procedure-costs-by-year${yearParam}`
     );
+    //debugging
+    console.log("procedure-costs-by-year raw:", res.data);
     //setProcedureCostByYear(res.data);
     setProcedureCostByYear(
       Array.isArray(res.data["procedure-costs-by-year"])
