@@ -58,7 +58,8 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const fetchPatientCount = async () => {
       try {
         const res = await axios.get(`${API_BASE}/analytics/patient-count`);
-        setPatientCount(Number(res.data.patient_count));
+        console.log("patient-count response:", res.data);
+        setPatientCount(res.data.patient_count);
       } catch (err) {
         console.error(err);
         setPatientError("Failed to fetch patient count");
