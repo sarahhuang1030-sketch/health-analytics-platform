@@ -117,8 +117,11 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
       `${API_BASE}/analytics/top-procedures?limit=${topLimit}`
     );
    // setTopProcedures(res.data);
-   const data = res.data?.top_procedures ?? res.data; // <— key fix
-    setTopProcedures(Array.isArray(data) ? data : []);
+    setTopProcedures(
+      Array.isArray(res.data["top-procedures"])
+        ? res.data["top-procedures"]
+        : []
+    );
   } catch (err) {
     console.error(err);
     setTopProceduresError("Failed to fetch top procedures");
@@ -135,8 +138,11 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
       `${API_BASE}/analytics/procedure-costs-by-year${yearParam}`
     );
     //setProcedureCostByYear(res.data);
-    const data = res.data?.procedure_costs_by_year ?? res.data; // <— key fix
-    setProcedureCostByYear(Array.isArray(data) ? data : []);
+    setProcedureCostByYear(
+      Array.isArray(res.data["procedure-costs-by-year"])
+        ? res.data["procedure-costs-by-year"]
+        : []
+    );
   } catch (err) {
     console.error(err);
   }
