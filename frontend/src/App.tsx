@@ -58,7 +58,7 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const fetchPatientCount = async () => {
       try {
         const res = await axios.get(`${API_BASE}/analytics/patient-count`);
-        setPatientCount(res.data.patient_count);
+        setPatientCount(Number(res.data.patient_count));
       } catch (err) {
         console.error(err);
         setPatientError("Failed to fetch patient count");
@@ -198,8 +198,7 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
 
 <Card title="Total Procedures" value={fmtNumber(procedureCount) ?? "Loading..."} />
 
- <Card title="Total Procedure Cost" value={fmtCurrency(totalCostCount) ?? "Loading..."} />
-
+<Card title="Total Procedure Cost" value={fmtCurrency(totalCostCount) ?? "Loading..."} />
 
 <Card title="Avg Cost per Patient" value={fmtCurrency(avgPatientCount) ?? "Loading..."} />
 
