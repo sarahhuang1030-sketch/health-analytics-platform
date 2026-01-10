@@ -81,7 +81,7 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
      const fetchProcedureCount = async () => {
       try {
         const res = await axios.get(`${API_BASE}/analytics/procedure-count`);
-        setProcedureCount(res.data.procedure_count);
+        setProcedureCount(Number(res.data["procedure-count"]));
       } catch (err) {
         console.error(err);
         setProcedureError("Failed to fetch procedure count");
@@ -92,7 +92,7 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const fetchTotalCostCount = async () => {
       try {
         const res = await axios.get(`${API_BASE}/analytics/total-procedure-cost`);
-        setTotalCostCount(res.data.total_procedure_cost);
+        setTotalCostCount(Number(res.data["total-procedure-cost"]));
       } catch (err) {
         console.error(err);
         setTotalCostError("Failed to fetch total cost");
@@ -103,7 +103,7 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     const fetchavgPatientCount = async () => {
       try {
         const res = await axios.get(`${API_BASE}/analytics/avg-cost-per-patient`);
-        setavgPatientCount(res.data.avg_cost_per_patient);
+        setavgPatientCount(Number(res.data["avg-cost-per-patient"]));
       } catch (err) {
         console.error(err);
         setavgPatientError("Failed to fetch average patient cost");
