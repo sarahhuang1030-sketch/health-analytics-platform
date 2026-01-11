@@ -119,11 +119,17 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     //debugging
     console.log("top-procedures raw:", res.data);
    // setTopProcedures(res.data);
-    setTopProcedures(
-      Array.isArray(res.data["top-procedures"])
-        ? res.data["top-procedures"]
-        : []
-    );
+   const raw = Array.isArray(res.data)
+  ? res.data
+  : res.data["top-procedures"];
+
+setTopProcedures(
+  (Array.isArray(raw) ? raw : []).map((r: any) => ({
+    procedure: r.procedure ?? r["procedure-name"] ?? r["procedure_name"],
+    total_cost: Number(r.total_cost ?? r["total-cost"] ?? r["total_procedure_cost"]),
+    count: Number(r.count ?? r["procedure-count"] ?? r["procedure_count"]),
+  }))
+);
   } catch (err) {
     console.error(err);
     setTopProceduresError("Failed to fetch top procedures");
@@ -142,11 +148,16 @@ const [selectedYear, setSelectedYear] = useState<number | "all">("all");
     //debugging
     console.log("procedure-costs-by-year raw:", res.data);
     //setProcedureCostByYear(res.data);
-    setProcedureCostByYear(
-      Array.isArray(res.data["procedure-costs-by-year"])
-        ? res.data["procedure-costs-by-year"]
-        : []
-    );
+    const raw = Array.isArray(res.data)
+  ? res.data
+  : res.data["procedure-costs-by-year"];
+
+setProcedureCostByYear(
+  (Array.isArray(raw) ? raw : []).map((r: any) => ({
+    year: Number(r.year ?? r["procedure-year"] ?? r["procedure_year"]),
+    total_cost: Number(r.total_cost ?? r["total-cost"] ?? r["total_procedure_cost"]),
+  }))
+);
   } catch (err) {
     console.error(err);
   }
