@@ -300,6 +300,7 @@ setProcedureCostByYear(
     )}
   </div>
 
+<br/><br/>
 
     {/* filtering for the line chart, place right */}
 <div>
